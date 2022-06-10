@@ -6,6 +6,8 @@
 const inputQuestion = document.querySelector('#inputQuestion')
 // selecionar elemento para visualizar a resposta na tela
 const answerElement = document.querySelector('#answer')
+// Aparecer somente uma resposta por pergunta
+const buttonQuestion = document.querySelector('#buttonQuestion')
 // respostas padrões a serem geradas
 const answers = [
   'Certeza!',
@@ -35,15 +37,20 @@ function askQuestion() {
     alert('Type your question!')
     return
   }
+  //Adiciona disabled ao botão de pergunta após ter uma pergunta e clicar
+  buttonQuestion.setAttribute('disabled', true)
   // surgir pergunta junto com a resposta
   const question = '<div>' + inputQuestion.value + '</div>'
   // gerar número aleatório
   const totalAnswers = answers.length
   const randomNumber = Math.floor(Math.random() * totalAnswers)
   answerElement.innerHTML = question + answers[randomNumber]
+  answerElement.style.opacity = 1;
 
   // Sumir a resposta após um determinado tempo (3s)
   setTimeout(function() {
     answerElement.style.opacity = 0;
+    // Remover atributo disabled do botão após (3s)
+    buttonQuestion.removeAttribute('disabled')
   }, 3000)
 }
